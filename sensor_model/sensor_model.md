@@ -47,4 +47,24 @@ $$
 参看['On-Manifold Preintegration for Real-TimeVisual-Inertial Odometry'. Page 6, last paragraph](https://1drv.ms/b/s!AhdeoYkNLfTBkS29FXZuWap-oOPg)
 
 ### IMU模型参数
+$$
+\Sigma^{\omega,n} = \begin{bmatrix} \sigma_{\omega,n}^2 &0&0 \\ 0& \sigma_{\omega,n}^2 &0 \\ 0&0& \sigma_{\omega,n}^2 \end{bmatrix}
+$$
+
+$$
+\Sigma^{\omega,\eta} = \begin{bmatrix} \sigma_{\omega,\eta}^2 &0&0 \\ 0& \sigma_{\omega,\eta}^2 &0 \\ 0&0& \sigma_{\omega,\eta}^2 \end{bmatrix}
+$$
+
+$$
+\Sigma^{a,n} = \begin{bmatrix} \sigma_{a,n}^2 &0&0 \\ 0& \sigma_{a,n}^2 &0 \\ 0&0& \sigma_{a,n}^2 \end{bmatrix}
+$$
+
+$$
+\Sigma^{a,\eta} = \begin{bmatrix} \sigma_{a,\eta}^2 &0&0 \\ 0& \sigma_{a,\eta}^2 &0 \\ 0&0& \sigma_{a,\eta}^2 \end{bmatrix}
+$$
+
+$\sigma_{\omega,n}$    : imu_config.gyro_noise_std    
+$\sigma_{\omega,\eta}$ : imu_config.gyro_bias_drift_std  
+$\sigma_{a,n}$         : imu_config.acc_noise_std       
+$\sigma_{a,\eta}$      : imu_config.acc_bias_drift_std  
 
