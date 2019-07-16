@@ -67,6 +67,36 @@ n^{a}_k = \frac{1}{\sqrt{\Delta t_k}}n^a \\
 $$
 
 雅各比：
-
+$$
+\begin{bmatrix} 
+J^{p_k}_{p_{k-1}} & 0 & J^{p_k}_{v_{k-1}} & 0 & 0 \\
+0 & J^{q_k}_{q_{k-1}} & 0 & J^{q_k}_{b^w_{k-1}} & 0 \\
+0 & J^{v_k}_{q_{k-1}} & J^{v_k}_{v_{k-1}} & 0 & J^{v_k}_{b^a_{k-1}} \\
+0 & 0 & 0 & J^{b^w_k}_{b^w_{k-1}} & 0 \\
+0 & 0 & 0 & 0 & J^{b^a_k}_{b^a_{k-1}} \\
+\end{bmatrix}
+=
+\begin{bmatrix} 
+I_3 & 0 & \Delta t_k I_3 & 0 & 0 \\
+0 & ? & 0 & ? & 0 \\
+0 & ? & I_3 & 0 & ? \\
+0 & 0 & 0 & I_3 & 0 \\
+0 & 0 & 0 & 0 & I_3 \\
+\end{bmatrix}
+\\
+\begin{bmatrix} 
+J^{q_k}_{n^w_k}\\
+J^{v_k}_{n^a_k}\\
+J^{b^w_k}_{\eta^w_k}\\
+J^{b^a_k}_{\eta^a_k}\\
+\end{bmatrix}
+=
+\begin{bmatrix} 
+?\\
+?\\
+\Delta t_k\\
+\Delta t_k\\
+\end{bmatrix}
+$$
 
 # Measurment
