@@ -12,13 +12,18 @@ function x_sample = sensor_imu(x, config)
   acc_initial_bias   = config.acc_initial_bias;
   acc_bias_drift_std = config.acc_bias_drift_std;
   acc_noise_std     = config.acc_noise_std;
+  earth_gravity     = config.earth_gravity;
 
 
   %% resample
   time_min = x.Time(1);
   time_max = x.Time(end);
   sample_time_series = (time_min:sample_interval:time_max)';
-  x_sample = resample(x, sample_time_series);
+  sample = resample(x, sample_time_series);
+
+  gyro_sampled_series = sample.Data(:,1:3);
+  acc_sampled_series  = sample.Data(:,4:6);
+  quat_sampled_series = sample.Data(:,7:10);
 
 
   %% gyro
@@ -44,7 +49,6 @@ function x_sample = sensor_imu(x, config)
   gyro_sample_noise_series = mvnrnd(mu,sigma,len);
 
 
-
   %% acc
   % acc bias
   len = size(sample_time_series,1)-1;
@@ -67,7 +71,13 @@ function x_sample = sensor_imu(x, config)
     ];
   acc_sample_noise_series = mvnrnd(mu,sigma,len);
 
+  % convert gravity in global frame to local frame
+  gravity_in_local_series = quatrotate(quatconj(quat_sampled_series), earth_gravity);
+
 
   %% output
-  x_sample.Data = x_sample.Data + [gyro_bias_series + gyro_sample_noise_series, acc_bias_series + acc_sample_noise_series];
+  gyro_meas_series = gyro_sampled_series + gyro_bias_series + gyro_sample_noise_series;
+  acc_meas_series = acc_sampled_series + gravity_in_local_series + acc_bias_series + acc_sample_noise_series;
+
+  x_sample = timeseries([gyro_meas_series, acc_meas_series], sample_time_series);
 end

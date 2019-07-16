@@ -16,7 +16,13 @@ function x_sample = sensor_gps(x, config)
   time_min = x.Time(1);
   time_max = x.Time(end);
   sample_time_series = (time_min:sample_interval:time_max)';
-  x_sample = resample(x, sample_time_series);
+  sample = resample(x, sample_time_series);
+
+  position_sample_series = sample.Data(:,1:3);
+  velocity_in_localframe_sample_series = sample.Data(:,4:6);
+  quat_sample_series = sample.Data(:,7:10);
+  velocity_sample_series = quatrotate(quat_sample_series, velocity_in_localframe_sample_series);
+
 
   %% position
   len = size(sample_time_series,1);
@@ -40,5 +46,8 @@ function x_sample = sensor_gps(x, config)
 
 
   %% output
-  x_sample.Data = x_sample.Data + [pos_noise_series vel_noise_series];
+  position_meas_series = position_sample_series + pos_noise_series;
+  velocity_meas_series = velocity_sample_series + vel_noise_series;
+
+  x_sample = timeseries([position_meas_series velocity_meas_series], sample_time_series);
 end

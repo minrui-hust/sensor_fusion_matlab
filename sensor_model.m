@@ -8,6 +8,7 @@ imu_config.gyro_noise_std = 0.01;  % rad/s
 imu_config.acc_initial_bias = [0.01 0.01 0.01];  % m/s^2
 imu_config.acc_bias_drift_std = 0.01;  % m/s^3
 imu_config.acc_noise_std = 0.01;  % m/s^2
+imu_config.earth_gravity = [0  0 -9.8]; % m/s^2
 
 
 %% compass config
@@ -28,8 +29,19 @@ gps_config.horz_vel_noise_std = 0.1; %m/s
 gps_config.vert_vel_noise_std = 0.1; %m/s
 
 
+%% lidar config
+lidar_config.sample_interval = 0.2; %second
+
+lidar_config.horz_pos_noise_std = 0.1; %m
+lidar_config.vert_pos_noise_std = 0.1; %m
+
+lidar_config.horz_rot_noise_std = 0.02; % rad
+lidar_config.vert_rot_noise_std = 0.02; % rad
+
+
+
 %% combine all sensor config
 sensor_config.imu = imu_config;
 sensor_config.compass = compass_config;
 sensor_config.gps = gps_config;
-
+sensor_config.lidar = lidar_config;
