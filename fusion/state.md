@@ -42,6 +42,7 @@ $$
 
 ## 离散模型
 $$
+x_k =
 \begin{bmatrix}
 p_k \\
 q_k \\
@@ -57,6 +58,15 @@ v_{k-1} + (q_{k-1} \circ (\overline{a}_{k} - b^a_{k-1} - n^a_k) - g) \Delta t_{k
 b^{\omega}_{k-1} + \eta^{\omega}_k \Delta t_k \\
 b^{a}_{k-1} + \eta^{a}_k \Delta t_k \\
 \end{bmatrix}
+\\
+\\
+Q_k = 
+\begin{bmatrix}
+n^w_k\\
+n^a_k\\
+\eta^w_k\\
+\eta^a_k\\
+\end{bmatrix}
 $$
 其中$\oplus$表示李群S(3)上的加法，并且有:
 $$
@@ -66,7 +76,7 @@ n^{a}_k = \frac{1}{\sqrt{\Delta t_k}}n^a \\
 \eta^{a}_k = \frac{1}{\sqrt{\Delta t_k}} \eta^{a}
 $$
 
-雅各比：
+状态雅各比：
 $$
 \begin{bmatrix} 
 J^{p_k}_{p_{k-1}} & 0 & J^{p_k}_{v_{k-1}} & 0 & 0 \\
@@ -78,25 +88,31 @@ J^{p_k}_{p_{k-1}} & 0 & J^{p_k}_{v_{k-1}} & 0 & 0 \\
 =
 \begin{bmatrix} 
 I_3 & 0 & \Delta t_k I_3 & 0 & 0 \\
-0 & ? & 0 & ? & 0 \\
-0 & ? & I_3 & 0 & ? \\
+0 & R^T\left((\overline{\omega}_k - b^{\omega}_{k-1} - n^{\omega}_k )\Delta t_k\right) & 0 & -\Delta t_k J_r\left( (\overline{\omega}_k - b^{\omega}_{k-1} - n^{\omega}_k )\Delta t_k\right) & 0 \\
+0 & -R(q_{k-1})[(\overline{a}_{k} - b^a_{k-1} - n^a_k)\Delta t_k]_{\times} & I_3 & 0 & -\Delta t_k R(q_{k-1}) \\
 0 & 0 & 0 & I_3 & 0 \\
 0 & 0 & 0 & 0 & I_3 \\
 \end{bmatrix}
-\\
+$$
+
+噪声雅各比：
+$$
 \begin{bmatrix} 
-J^{q_k}_{n^w_k}\\
-J^{v_k}_{n^a_k}\\
-J^{b^w_k}_{\eta^w_k}\\
-J^{b^a_k}_{\eta^a_k}\\
+0&0&0&0\\
+J^{q_k}_{n^w_k} &0&0&0\\
+0&J^{v_k}_{n^a_k}&0&0\\
+0&0&J^{b^w_k}_{\eta^w_k}&0\\
+0&0&0&J^{b^a_k}_{\eta^a_k}\\
 \end{bmatrix}
 =
-\begin{bmatrix} 
-?\\
-?\\
-\Delta t_k\\
-\Delta t_k\\
+\begin{bmatrix}
+0&0&0&0\\
+-\Delta t_k J_r\left( (\overline{\omega}_k - b^{\omega}_{k-1} - n^{\omega}_k )\Delta t_k\right) &0&0&0\\
+0 & -\Delta t_k R(q_{k-1}) & 0 & 0\\
+0 & 0 & \Delta t_k & 0\\
+0 & 0 & 0 & \Delta t_k\\
 \end{bmatrix}
 $$
+上式中$R(*)$表示$*$对应的旋转矩阵，如果$*$是四元数，那么就是四元数对应的旋转矩阵，如果$*$是旋转向量, 就是旋转向量对应的旋转矩阵.
 
 # Measurment
