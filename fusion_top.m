@@ -6,7 +6,7 @@ addpath ./meas_model
 addpath ./utils/rotation_group
 
 %% load seq
-seq = readtable('./sequences/seq0.txt', 'ReadVariableNames', true, 'HeaderLines',0);
+seq = readtable('./sequences/seq1.txt', 'ReadVariableNames', true, 'HeaderLines',0);
 gt_raw = timeseries([ seq.px, seq.py, seq.pz, seq.qw, seq.qx, seq.qy, seq.qz, seq.vx, seq.vy, seq.vz, seq.wx, seq.wy, seq.wz, seq.ax, seq.ay, seq.az, seq.mx, seq.my, seq.mz], seq.time);
 
 

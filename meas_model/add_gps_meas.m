@@ -1,19 +1,26 @@
 function [x_updated, P_updated] = add_gps_meas(x, P, z, R)
 
-  % construct the predict measurement
-  p_pred = x(1:3);
+  %p_pred = x(1:3);
+
+  %p_meas = z(1:3);
+
+  %Hp = zeros(3,15);
+  %Hp(1:3,1:3 ) = eye(3,3);
+
+  %Rp = R(1:3,1:3);
+
+  %[x, P] = meas_update(x, P, p_meas, p_pred, Hp, Rp);
+
+
+
   v_pred = x(8:10);
-  z_pred = [p_pred;v_pred];
 
-  % construct measurement matrix
-  H = zeros(6,15);
-  H(1:3,1:3 ) = eye(3,3);
-  H(4:6,7:9) = eye(3,3);
+  v_meas = z(4:6);
 
-  % construct the measurement noise cov
-  N = eye(6,6);
-  R = N*R*N';
+  Hv = zeros(3,15);
+  Hv(1:3,7:9) = eye(3,3);
 
-  % measurement update
-  [x_updated, P_updated] = meas_update(x, P, z, z_pred, H, R);
+  Rv = R(4:6,4:6);
+
+  [x_updated, P_updated] = meas_update(x, P, v_meas, v_pred, Hv, Rv);
 end

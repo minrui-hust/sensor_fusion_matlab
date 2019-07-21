@@ -51,9 +51,9 @@ function [x_sample, x_true] = sensor_imu(x, config)
   acc_bias_series = cumsum([acc_initial_bias'; acc_bias_delta_series], 1);
 
   % acc noise
-  len = size(sample_time_series,2);
+  len = size(sample_time_series,1);
   mu = [0; 0; 0];
-  sigma = acc_noise_cov;
+  sigma = acc_noise_cov
   acc_sample_noise_series = mvnrnd(mu,sigma,len);
 
   % convert gravity in global frame to local frame

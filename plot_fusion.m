@@ -1,47 +1,47 @@
 % plot quat
-figure('Name', 'quat');
-
-subplot(3,2,1);
-title('qx');
-grid on;
-hold on;
-plot(time, gt_q(2,:), 'b');
-plot(time, fusion_q(2,:), 'r');
-
-subplot(3,2,3);
-title('qy');
-grid on;
-hold on;
-plot(time, gt_q(3,:), 'b');
-plot(time, fusion_q(3,:), 'r');
-
-subplot(3,2,5);
-title('qz');
-grid on;
-hold on;
-plot(time, gt_q(4,:), 'b');
-plot(time, fusion_q(4,:), 'r');
-
-subplot(3,2,2);
-title('roll');
-grid on;
-hold on;
-plot(time, gt_euler(1,:), 'b');
-plot(time, fusion_euler(1,:), 'r');
-
-subplot(3,2,4);
-title('pitch');
-grid on;
-hold on;
-plot(time, gt_euler(2,:), 'b');
-plot(time, fusion_euler(2,:), 'r');
-
-subplot(3,2,6);
-title('yaw');
-grid on;
-hold on;
-plot(time, gt_euler(3,:), 'b');
-plot(time, fusion_euler(3,:), 'r');
+%figure('Name', 'quat');
+%
+%subplot(3,2,1);
+%title('qx');
+%grid on;
+%hold on;
+%plot(time, gt_q(2,:), 'b');
+%plot(time, fusion_q(2,:), 'r');
+%
+%subplot(3,2,3);
+%title('qy');
+%grid on;
+%hold on;
+%plot(time, gt_q(3,:), 'b');
+%plot(time, fusion_q(3,:), 'r');
+%
+%subplot(3,2,5);
+%title('qz');
+%grid on;
+%hold on;
+%plot(time, gt_q(4,:), 'b');
+%plot(time, fusion_q(4,:), 'r');
+%
+%subplot(3,2,2);
+%title('roll');
+%grid on;
+%hold on;
+%plot(time, gt_euler(1,:), 'b');
+%plot(time, fusion_euler(1,:), 'r');
+%
+%subplot(3,2,4);
+%title('pitch');
+%grid on;
+%hold on;
+%plot(time, gt_euler(2,:), 'b');
+%plot(time, fusion_euler(2,:), 'r');
+%
+%subplot(3,2,6);
+%title('yaw');
+%grid on;
+%hold on;
+%plot(time, gt_euler(3,:), 'b');
+%plot(time, fusion_euler(3,:), 'r');
 
 
 %% plot v

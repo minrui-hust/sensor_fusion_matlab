@@ -3,20 +3,20 @@ sensor_config.imu.sample_interval  = 0.01; %second
 
 sensor_config.imu.gyro_initial_bias = [0; 0; 0];  % rad/s
 sensor_config.imu.gyro_bias_drift_cov = diag([0 0 0]);%0.01;  % rad/s^2
-sensor_config.imu.gyro_noise_cov = diag([0.1 0 0]); % rad/s
+sensor_config.imu.gyro_noise_cov = diag([0 0 0]); % rad/s
  
 sensor_config.imu.acc_initial_bias = [0; 0; 0]; %[0.01; 0.01; 0.01];  % m/s^2
 sensor_config.imu.acc_bias_drift_cov = diag([0 0 0]);%0.01;  % m/s^3
-sensor_config.imu.acc_noise_cov = diag([0 0.2 0.2]);  % m/s^2
-sensor_config.imu.earth_gravity = [0;  0; -9.8]; % m/s^2
+sensor_config.imu.acc_noise_cov = diag([0.1 0 0]);  % m/s^2
+sensor_config.imu.earth_gravity = [0;  0; 0]; % m/s^2
 
 
 %% gps config
 sensor_config.gps.sample_interval = 0.2; %second
 
-sensor_config.gps.pos_noise_cov = diag([0 0.1 0.1]); %m
+sensor_config.gps.pos_noise_cov = diag([0.1 0 0]); %m
 
-sensor_config.gps.vel_noise_cov = diag([0 0.01 0.01]); %m/s
+sensor_config.gps.vel_noise_cov = diag([0.01 0.0 0.0]); %m/s
 
 
 %% lidar config

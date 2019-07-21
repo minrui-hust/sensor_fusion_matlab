@@ -10,7 +10,7 @@ time = 0:sim_step:sim_duration;
 pos_0   = [0 0 0  ];
 vel_0   = [0 0 0  ];
 euler_0 = [0 0 0  ];
-omega_0 = [0.2 0 0];
+omega_0 = [0 0 0];
 
 
 % specify force and torque
@@ -36,4 +36,4 @@ m = domega.Data;
 
 seq = array2table([time' p q v w a m],'VariableNames',{'time' 'px' 'py' 'pz' 'qw' 'qx' 'qy' 'qz' 'vx' 'vy' 'vz' 'wx' 'wy' 'wz' 'ax' 'ay' 'az' 'mx' 'my' 'mz'});
 
-writetable(seq, '/home/mr/Workspace/repo/sensor_fusion_matlab/sequences/seq0.txt');
+writetable(seq, '/home/mr/repo/sensor_fusion_matlab/sequences/seq1.txt');
