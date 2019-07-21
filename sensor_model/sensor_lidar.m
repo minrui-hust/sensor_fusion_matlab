@@ -1,4 +1,4 @@
-function x_sample = sensor_lidar(x, config)
+function [x_sample, x_true] = sensor_lidar(x, config)
   %SENSOR_LIDAR given the original true value Pose,
   %return sampled Pose with noise
   %   Detailed explanation goes here
@@ -19,7 +19,7 @@ function x_sample = sensor_lidar(x, config)
   sample = resample(x, sample_time_series);
 
   position_sample_series = sample.Data(:,1:3);
-  quat_sample_series = sample.Data(:,4:7);
+  quat_sample_series     = sample.Data(:,4:7);
 
 
   %% position
@@ -45,7 +45,8 @@ function x_sample = sensor_lidar(x, config)
 
   %% output
   position_meas_series = position_sample_series + pos_noise_series;
-  quat_meas_series = quatmultiply(quat_sample_series, rod2quat(rot_noise_series));
+  quat_meas_series = s3_multi(quat_sample_series', s3_exp(rot_noise_series'))';
 
-  x_sample = timeseries([position_meas_series quat_meas_series], sample_time_series);
+  x_sample = timeseries([position_meas_series, quat_meas_series], sample_time_series);
+  x_true   = timeseries([position_sample_series, quat_sample_series], sample_time_series);
 end

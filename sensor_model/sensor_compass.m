@@ -13,22 +13,22 @@ function x_sample = sensor_compass(x, config)
   %% resample
   time_min = x.Time(1);
   time_max = x.Time(end);
-  sample_time_series = (time_min:sample_interval:time_max)';
+  sample_time_series = time_min:sample_interval:time_max;
   sample = resample(x, sample_time_series);
 
-  sampled_quat_series = sample.Data(:,1:4);
-  sampled_magnetic_series = quatrotate(quatconj(sampled_quat_series), earth_magnetic);
+  sampled_quat_series = sample.Data(1:4, :);
+  sampled_magnetic_series = s3_rotate(s3_conj(sampled_quat_series), earth_magnetic);
 
 
   %% noise
-  len = size(sample_time_series,1);
-  mu = [0 0 0];
+  len = size(sample_time_series,2);
+  mu = [0; 0; 0];
   sigma = [...
     noise_std^2 0 0;...
     0 noise_std^2 0;...
     0 0 noise_std^2;...
     ];
-  noise_series = mvnrnd(mu,sigma,len);
+  noise_series = mvnrnd(mu,sigma,len)';
 
 
   %% output
