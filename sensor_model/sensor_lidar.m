@@ -6,11 +6,9 @@ function [x_sample, x_true] = sensor_lidar(x, config)
   %% sensor lidar config
   sample_interval = config.sample_interval;
 
-  horz_pos_noise_std = config.horz_pos_noise_std;
-  vert_pos_noise_std = config.vert_pos_noise_std;
+  pos_noise_cov = config.pos_noise_cov;
 
-  horz_rot_noise_std = config.horz_rot_noise_std;
-  vert_rot_noise_std = config.vert_rot_noise_std;
+  rot_noise_cov = config.rot_noise_cov;
 
   %% resample
   time_min = x.Time(1);
@@ -25,21 +23,13 @@ function [x_sample, x_true] = sensor_lidar(x, config)
   %% position
   len = size(sample_time_series,1);
   mu = [0 0 0];
-  sigma = [...
-    horz_pos_noise_std^2 0 0;...
-    0 horz_pos_noise_std^2 0;...
-    0 0 vert_pos_noise_std^2;...
-    ];
+  sigma = pos_noise_cov;
   pos_noise_series = mvnrnd(mu,sigma,len);
 
   %% rotation
   len = size(sample_time_series,1);
   mu = [0 0 0];
-  sigma = [...
-    horz_rot_noise_std^2 0 0;...
-    0 horz_rot_noise_std^2 0;...
-    0 0 vert_rot_noise_std^2;...
-    ];
+  sigma = rot_noise_cov;
   rot_noise_series = mvnrnd(mu,sigma,len);
 
 
