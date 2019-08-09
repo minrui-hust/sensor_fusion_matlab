@@ -6,6 +6,10 @@ function [x_sample, x_true] = sensor_lidar(x, config)
   %% sensor lidar config
   sample_interval = config.sample_interval;
 
+  t_imu_lidar = config.t_imu_lidar;
+
+  q_imu_lidar = config.q_imu_lidar;
+
   pos_noise_cov = config.pos_noise_cov;
 
   rot_noise_cov = config.rot_noise_cov;
@@ -16,17 +20,20 @@ function [x_sample, x_true] = sensor_lidar(x, config)
   sample_time_series = (time_min:sample_interval:time_max)';
   sample = resample(x, sample_time_series);
 
-  position_sample_series = sample.Data(:,1:3);
-  quat_sample_series     = sample.Data(:,4:7);
+  imu_position_sample_series = sample.Data(:,1:3);
+  imu_quat_sample_series     = sample.Data(:,4:7);
+
+  position_sample_series = s3_rotate(imu_quat_sample_series', t_imu_lidar)' + imu_position_sample_series;
+  quat_sample_series = s3_multi(imu_quat_sample_series', q_imu_lidar)';
 
 
-  %% position
+  %% position noise
   len = size(sample_time_series,1);
   mu = [0 0 0];
   sigma = pos_noise_cov;
   pos_noise_series = mvnrnd(mu,sigma,len);
 
-  %% rotation
+  %% rotation noise
   len = size(sample_time_series,1);
   mu = [0 0 0];
   sigma = rot_noise_cov;

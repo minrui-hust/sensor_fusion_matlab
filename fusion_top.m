@@ -16,7 +16,7 @@ for it=1:1
 sensor_conf;
 
 % get the combined sensor stream
-[stream, imu_sample, imu_gt, gps_sample, gps_gt, lidar_sample, lidar_gt] = sensor_stream(seq, sensor_config);
+[stream, imu_sample, imu_gt, gps_sample, gps_gt, lidar_sample, lidar_gt] = sensor_stream(gt_raw, sensor_config);
 plot_sensor;
 
 

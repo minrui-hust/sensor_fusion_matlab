@@ -14,7 +14,7 @@ gt_raw = timeseries([ seq.px, seq.py, seq.pz, seq.qw, seq.qx, seq.qy, seq.qz, se
 sensor_conf;
 
 % get the combined sensor stream
-[stream, imu_sample, imu_gt, gps_sample, gps_gt, lidar_sample, lidar_gt] = sensor_stream(seq, sensor_config);
+[stream, imu_sample, imu_gt, gps_sample, gps_gt, lidar_sample, lidar_gt] = sensor_stream(gt_raw, sensor_config);
 % plot_sensor;
 
 %save the snapshot of the ground truth and sensor data

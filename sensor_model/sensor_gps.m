@@ -6,6 +6,8 @@ function [x_sample, x_true] = sensor_gps(x, config)
   %% sensor gps config
   sample_interval = config.sample_interval;
 
+  t_imu_gps = config.t_imu_gps;
+
   pos_noise_cov = config.pos_noise_cov;
 
   vel_noise_cov = config.vel_noise_cov;
@@ -16,16 +18,22 @@ function [x_sample, x_true] = sensor_gps(x, config)
   sample_time_series = (time_min:sample_interval:time_max)';
   sample = resample(x, sample_time_series);
 
-  position_sample_series = sample.Data(:,1:3);
-  velocity_sample_series = sample.Data(:,4:6);
+  %% convert data in imu frame to gps frame
+  imu_position_sample_series = sample.Data(:,1:3);
+  imu_quat_sample_series = sample.Data(:,4:7);
+  imu_velocity_sample_series = sample.Data(:,8:10);
+  imu_omega_sample_series = sample.Data(:,11:13);
 
-  %% position
+  position_sample_series = s3_rotate(imu_quat_sample_series', t_imu_gps)' + imu_position_sample_series;
+  velocity_sample_series = imu_velocity_sample_series - s3_rotate(imu_quat_sample_series', so3_hat(t_imu_gps)*imu_omega_sample_series')';
+
+  %% position noise
   len = size(sample_time_series,1);
   mu = [0 0 0];
   sigma = pos_noise_cov;
   pos_noise_series = mvnrnd(mu,sigma,len);
 
-  %% velocity
+  %% velocity noise
   len = size(sample_time_series,1);
   mu = [0 0 0];
   sigma = vel_noise_cov;

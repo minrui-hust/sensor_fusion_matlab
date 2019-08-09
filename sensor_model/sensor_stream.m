@@ -2,16 +2,13 @@ function [stream,imu_sample,imu_true,gps_sample,gps_true,lidar_sample,lidar_true
   %% generate sensor data stream
 
   % imu
-  imu_gt = timeseries([gt.wx gt.wy gt.wz gt.ax gt.ay gt.az gt.qw gt.qx gt.qy gt.qz], gt.time);
-  [imu_sample,imu_true] = sensor_imu(imu_gt, sensor_config.imu);
+  [imu_sample,imu_true] = sensor_imu(gt, sensor_config.imu);
 
   % gps
-  gps_gt = timeseries([gt.px gt.py gt.pz gt.vx gt.vy gt.vz], gt.time);
-  [gps_sample, gps_true] = sensor_gps(gps_gt, sensor_config.gps);
+  [gps_sample, gps_true] = sensor_gps(gt, sensor_config.gps);
 
-  % lidar (6dof)
-  lidar_gt = timeseries([gt.px gt.py gt.pz gt.qw gt.qx gt.qy gt.qz], gt.time);
-  [lidar_sample, lidar_true] = sensor_lidar(lidar_gt, sensor_config.lidar);
+  % lidar
+  [lidar_sample, lidar_true] = sensor_lidar(gt, sensor_config.lidar);
 
   % generate the stream according to timestamp
   imu_id = 1;

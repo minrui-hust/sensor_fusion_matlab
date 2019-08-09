@@ -22,9 +22,9 @@ function [x_sample, x_true] = sensor_imu(x, config)
   sample_time_series = (time_min:sample_interval:time_max)';
   sample = resample(x, sample_time_series);
 
-  gyro_sampled_series = sample.Data(:,1:3 );
-  acc_sampled_series  = sample.Data(:,4:6 );
-  quat_sampled_series = sample.Data(:,7:10);
+  quat_sampled_series = sample.Data(:,4:7);
+  gyro_sampled_series = sample.Data(:,11:13 );
+  acc_sampled_series  = sample.Data(:,14:16 );
 
 
   %% gyro
